@@ -14,12 +14,12 @@ const validateEmail = (emailAddress) => {
 	return emailValid;
 }
 
-const validatePassword = async (password, options) => {
+const validatePassword = (password, options) => {
 	console.log("options", options);
-	if (!password || password === undefined) await renderError(`No password provided`);
-	if (password.length < options.minLength) await renderError(`Password must be at least ${options.minLength} characters long`);
+	if (!password || password === undefined) return renderError(`No password provided`);
+	if (password.length < options.minLength) return renderError(`Password must be at least ${options.minLength} characters long`);
 	const pwTest = expressions.password(options);
-	if (!pwTest.hasNumber.test(password)) await renderError(`Password must contain at least one number`);
+	if (!pwTest.hasNumber.test(password)) return renderError(`Password must contain at least one number`);
 	return true;
 }
 
@@ -32,7 +32,7 @@ export const email = (emailAddress) => {
 export const password = (password) => {
 	return {
 		validate: (options) => {
-			if (!options) options = defaultOptions.password();
+			if (!options || options === undefined) options = defaultOptions.password();
 			return validatePassword(password, options);
 		}
 	};
