@@ -1,0 +1,27 @@
+{
+  "name": "formbuddy",
+  "version": "0.0.1",
+  "description": "Your best buddy for constructing, styling, and validating forms",
+  "repository": {
+    "url": "https://github.com/JoshAaronLevy/formbuddy"
+  },
+  "main": "./bin/index.mjs",
+  "scripts": {
+    "deploy": "git add -A && git commit -m \"updated version\" && git push origin main && npm publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "forms",
+    "regex",
+    "javascript"
+  ],
+  "author": {
+    "name": "Josh Levy"
+  },
+  "license": "ISC",
+  "private": false,
+  "preferGlobal": false,
+  "bin": {
+    "formbuddy": "./bin/index.mjs"
+  }
+}
