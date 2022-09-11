@@ -15,7 +15,6 @@ const validateEmail = (emailAddress) => {
 }
 
 const validatePassword = (password, options) => {
-	console.log("options", options);
 	if (!password || password === undefined) return renderError(`No password provided`);
 	if (password.length < options.minLength) return renderError(`Password must be at least ${options.minLength} characters long`);
 	if (options.requireNumber && !expressions.password.hasNumber.test(password)) return renderError(`Password must contain at least one number`);
