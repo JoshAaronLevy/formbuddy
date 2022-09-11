@@ -2,7 +2,8 @@ import * as expressions from "../lib/expressions.mjs";
 import * as defaultOptions from "../lib/defaultOptions.mjs";
 
 const renderError = (errorMsg) => {
-	return console.error(`RegexBuddy: ` + errorMsg);
+	console.error(`RegexBuddy: ` + errorMsg);
+	return false;
 }
 
 const validateEmail = (emailAddress) => {
@@ -13,14 +14,13 @@ const validateEmail = (emailAddress) => {
 	return emailValid;
 }
 
-const validatePassword = (password, options) => {
-	if (!password || password === undefined) renderError(`No password provided`);
-	let passwordValid = false;
-	const pwTest = expressions.password(options);
+const validatePassword = async (password, options) => {
 	console.log("options", options);
-	!pwTest.hasNumber.test(password) ? renderError(`Password must contain at least one number`) : passwordValid = true;
-	!pwTest.base.exec(password) ? renderError(`Invalid password: ${password}`) : passwordValid = true;
-	return passwordValid;
+	if (!password || password === undefined) await renderError(`No password provided`);
+	if (password.length < options.minLength) await renderError(`Password must be at least ${options.minLength} characters long`);
+	const pwTest = expressions.password(options);
+	if (!pwTest.hasNumber.test(password)) await renderError(`Password must contain at least one number`);
+	return true;
 }
 
 export const email = (emailAddress) => {
