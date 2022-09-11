@@ -18,8 +18,10 @@ const validatePassword = (password, options) => {
 	console.log("options", options);
 	if (!password || password === undefined) return renderError(`No password provided`);
 	if (password.length < options.minLength) return renderError(`Password must be at least ${options.minLength} characters long`);
-	const pwTest = expressions.password(options);
-	if (!pwTest.hasNumber.test(password)) return renderError(`Password must contain at least one number`);
+	if (options.requireNumber && !expressions.password.hasNumber.test(password)) return renderError(`Password must contain at least one number`);
+	if (options.requireSpecialCharacters && !expressions.password.hasSpecialCharacters.test(password)) return renderError(`Password must contain at least one special character`);
+	if (options.requireUpperCase && !expressions.password.hasUpperCase.test(password)) return renderError(`Password must contain at least one uppercase letter`);
+	if (options.requireLowerCase && !expressions.password.hasLowerCase.test(password)) return renderError(`Password must contain at least one lowercase letter`);
 	return true;
 }
 
@@ -32,7 +34,7 @@ export const email = (emailAddress) => {
 export const password = (password) => {
 	return {
 		validate: (options) => {
-			if (!options || options === undefined) options = defaultOptions.password();
+			if (!options || options === undefined) options = defaultOptions.password({});
 			return validatePassword(password, options);
 		}
 	};

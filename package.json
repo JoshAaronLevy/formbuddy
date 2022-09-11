@@ -1,6 +1,6 @@
 {
   "name": "formbuddy",
-  "version": "0.1.2",
+  "version": "0.2.3",
   "description": "Your best buddy for constructing, styling, and validating forms",
   "repository": {
     "url": "https://github.com/JoshAaronLevy/formbuddy"
