@@ -34,8 +34,9 @@ export const email = (emailAddress) => {
 export const password = (password) => {
 	return {
 		validate: (options) => {
-			if (!options || options === undefined) options = defaultOptions.password({});
-			return validatePassword(password, options);
+			if (!options || options === undefined) options = {};
+			const pwOptions = defaultOptions.password(options);
+			return validatePassword(password, pwOptions);
 		}
 	};
 }
